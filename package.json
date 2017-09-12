@@ -1,0 +1,29 @@
+{
+  "name": "talk-to-seneca",
+  "version": "1.0.0",
+  "description": "Command line tool for developers to send messages to Seneca based applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliversturm/talk-to-seneca.git"
+  },
+  "keywords": [
+    "Seneca",
+    "cli"
+  ],
+  "author": "Oliver Sturm <oliver@oliversturm.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/oliversturm/talk-to-seneca/issues"
+  },
+  "homepage": "https://github.com/oliversturm/talk-to-seneca#readme",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "jsonic": "^0.3.0",
+    "seneca": "^3.4.2",
+    "vorpal": "^1.12.0"
+  }
+}
