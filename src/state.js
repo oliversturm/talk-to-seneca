@@ -27,7 +27,7 @@ module.exports = function() {
   function showClient(index, log) {
     if (index >= 0 && index <= clientConfigs.length - 1)
       log(
-        chalk.green('Client ') + chalk.red(index) + chalk.green(': '),
+        chalk.green('Client id ') + chalk.red(index) + chalk.green(': '),
         clientConfigs[index]
       );
   }
@@ -36,11 +36,25 @@ module.exports = function() {
     clientConfigs.forEach((c, i) => showClient(i, log));
   }
 
+  function clientCount() {
+    return clientConfigs.length;
+  }
+
+  function prompt() {
+    const cc = clientCount();
+    const color = cc ? chalk.green : chalk.red;
+    return color(
+      `TTS [${cc ? cc + ' client' + (cc > 1 ? 's' : '') : 'disconnected'}] >`
+    );
+  }
+
   return {
     seneca: getSeneca,
     addClient,
     resetSeneca,
     showClient,
-    showClients
+    showClients,
+    clientCount,
+    prompt
   };
 };

@@ -7,5 +7,5 @@ vorpal
   .history('tts')
   .use(require('./client'), state)
   .use(require('./act'), state)
-  .delimiter(chalk.red('TTS >'))
+  .delimiter(state.prompt())
   .show();

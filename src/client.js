@@ -21,7 +21,7 @@ module.exports = (vorpal, state) => {
         port: args.options.port || 8080,
         pin: args.options.pin
       });
-
+      vorpal.delimiter(state.prompt());
       cb();
     });
 
@@ -29,6 +29,7 @@ module.exports = (vorpal, state) => {
     .command('reset', 'Resets the local Seneca instance.')
     .action(function(args, cb) {
       state.resetSeneca();
+      vorpal.delimiter(state.prompt());
       cb();
     });
 
