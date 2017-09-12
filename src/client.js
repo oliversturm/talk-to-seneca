@@ -21,7 +21,7 @@ module.exports = (vorpal, state) => {
         type: args.type,
         host: args.options.host || 'localhost',
         port: args.options.port || 8080,
-        pin: args.options.pin || 'role:validation'
+        pin: args.options.pin
       });
 
       cb();
