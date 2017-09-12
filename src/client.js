@@ -1,3 +1,5 @@
+const chalk = require('chalk');
+
 module.exports = (vorpal, state) => {
   vorpal
     .command(
@@ -15,12 +17,13 @@ module.exports = (vorpal, state) => {
       'PIN for Seneca messages. Must be parseable by jsonic.'
     )
     .action(function(args, cb) {
-      state.addClient({
+      const newId = state.addClient({
         type: args.type,
         host: args.options.host || 'localhost',
         port: args.options.port || 8080,
         pin: args.options.pin
       });
+      this.log(chalk.green(`Client id ${newId} configured.`));
       vorpal.delimiter(state.prompt());
       cb();
     });
@@ -29,6 +32,7 @@ module.exports = (vorpal, state) => {
     .command('reset', 'Resets the local Seneca instance.')
     .action(function(args, cb) {
       state.resetSeneca();
+      this.log(chalk.green('Local Seneca instance reset.'));
       vorpal.delimiter(state.prompt());
       cb();
     });

@@ -21,7 +21,7 @@ module.exports = function() {
 
   function addClient(config) {
     getSeneca().client(config);
-    clientConfigs.push(config);
+    return clientConfigs.push(config) - 1;
   }
 
   function showClient(index, log) {
