@@ -13,7 +13,7 @@ module.exports = (vorpal, state) => {
         ? args.message.join(' ')
         : args.message;
 
-      state.seneca.act(message, function(err, result) {
+      state.seneca().act(message, function(err, result) {
         // empty line - without this, a long command sometimes
         // overlaps into the output (vorpal bug?)
         that.log('');

@@ -15,15 +15,34 @@ module.exports = (vorpal, state) => {
       'PIN for Seneca messages. Must be parseable by jsonic.'
     )
     .action(function(args, cb) {
-      //this.log('Received args: ', JSON.stringify(args));
-
-      state.seneca.client({
+      state.addClient({
         type: args.type,
         host: args.options.host || 'localhost',
         port: args.options.port || 8080,
         pin: args.options.pin
       });
 
+      cb();
+    });
+
+  vorpal
+    .command('reset', 'Resets the local Seneca instance.')
+    .action(function(args, cb) {
+      state.resetSeneca();
+      cb();
+    });
+
+  vorpal
+    .command('show clients', 'Outputs all active client configs.')
+    .action(function(args, cb) {
+      state.showClients(this.log.bind(this));
+      cb();
+    });
+
+  vorpal
+    .command('show client <id>', 'Outputs client config with id.')
+    .action(function(args, cb) {
+      state.showClient(args.id, this.log.bind(this));
       cb();
     });
 };

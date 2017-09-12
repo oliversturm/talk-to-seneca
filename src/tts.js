@@ -1,10 +1,7 @@
-const seneca = require('seneca')();
 const vorpal = require('vorpal')();
 const chalk = require('chalk');
 
-const state = {
-  seneca
-};
+const state = require('./state')();
 
 vorpal
   .history('tts')
