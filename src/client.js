@@ -1,31 +1,56 @@
 const chalk = require('chalk');
 
 module.exports = (vorpal, state) => {
+  function getConfig(args) {
+    switch (args.type) {
+      case 'tcp':
+        return {
+          type: 'tcp',
+          host: args.options.host || 'localhost',
+          port: args.options.port || 8080,
+          pin: args.options.pin
+        };
+      case 'amqp':
+        return {
+          type: 'amqp',
+          host: args.options.host || 'localhost',
+          port: args.options.port || 8080,
+          pin: args.options.pin,
+          socketOptions: {
+            noDelay: true
+          }
+        };
+      default:
+        return undefined;
+    }
+  }
+
   vorpal
     .command(
       'client <type>',
-      'Configures a client connection to a running Seneca instance.'
+      "Configures a client connection to a running Seneca instance. Type can be 'tcp' or 'amqp' at this time."
     )
-    .autocomplete(['tcp'])
+    .autocomplete(['tcp', 'amqp'])
     .option(
       '-h, --host <host>',
-      "Server for TCP connections. Default 'localhost'."
+      "'host' or 'hostname' parameter. Default 'localhost'."
     )
-    .option('-p, --port <port>', 'Port for TCP connections. Default 8080.')
+    .option('-p, --port <port>', "'port' parameter. Default 8080.")
     .option(
       '--pin <pin>',
       'PIN for Seneca messages. Must be parseable by jsonic.'
     )
     .action(function(args, cb) {
-      const newId = state.addClient({
-        type: args.type,
-        host: args.options.host || 'localhost',
-        port: args.options.port || 8080,
-        pin: args.options.pin
+      const that = this;
+
+      state.addClient(getConfig(args), function(newId) {
+        if (newId >= 0) that.log(chalk.green(`Client id ${newId} configured.`));
+        else if (newId.err)
+          that.log(chalk.red('ERROR: ', JSON.stringify(newId.err)));
+        else that.log(chalk.red('Client configuration failed.'));
+        vorpal.delimiter(state.prompt());
+        cb();
       });
-      this.log(chalk.green(`Client id ${newId} configured.`));
-      vorpal.delimiter(state.prompt());
-      cb();
     });
 
   vorpal
