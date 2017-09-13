@@ -6,6 +6,10 @@ module.exports = (vorpal, state) => {
       'act <message...>',
       'Send a message. The message must be parseable by jsonic.'
     )
+    .option(
+      '-a, --async',
+      'Send the message without a callback, i.e. asynchronously.'
+    )
     .action(function(args, cb) {
       const that = this;
 
@@ -13,7 +17,7 @@ module.exports = (vorpal, state) => {
         ? args.message.join(' ')
         : args.message;
 
-      state.seneca().act(message, function(err, result) {
+      function handleResult(err, result) {
         // empty line - without this, a long command sometimes
         // overlaps into the output (vorpal bug?)
         that.log('');
@@ -23,7 +27,11 @@ module.exports = (vorpal, state) => {
           that.log(chalk.green('Result: '), JSON.stringify(result, null, 2));
 
         cb();
-      });
+      }
+      if (args.options.async) {
+        state.seneca().act(message);
+        cb();
+      } else state.seneca().act(message, handleResult);
     })
     .cancel(function() {
       this.log("Cancelled. Sorry this didn't work out.");

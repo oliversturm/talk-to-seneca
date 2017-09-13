@@ -18,7 +18,7 @@ module.exports = function() {
 
   function addClient(config, cont) {
     if (config) {
-      console.log('config: ', config);
+      //console.log('config: ', config);
 
       getSeneca().client(config).ready(() => {
         cont(clientConfigs.push(config) - 1);
