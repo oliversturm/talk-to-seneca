@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Command line tool for developers to send messages to Seneca based applications",
   "main": "index.js",
+  "bin": {
+    "tts": "bin/tts"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
