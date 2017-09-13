@@ -1,13 +1,11 @@
 {
   "name": "talk-to-seneca",
-  "version": "1.0.0",
+  "version": "0.0.5",
   "description": "Command line tool for developers to send messages to Seneca based applications",
   "main": "index.js",
   "bin": {
-    "tts": "bin/tts"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tts": "bin/tts",
+    "talk-to-seneca": "bin/tts"
   },
   "repository": {
     "type": "git",
