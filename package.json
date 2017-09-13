@@ -1,6 +1,6 @@
 {
   "name": "talk-to-seneca",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Command line tool for developers to send messages to Seneca based applications",
   "main": "index.js",
   "bin": {
