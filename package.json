@@ -24,6 +24,7 @@
     "chalk": "^2.1.0",
     "jsonic": "^0.3.0",
     "seneca": "^3.4.2",
+    "seneca-amqp-transport": "^2.2.0",
     "vorpal": "^1.12.0"
   }
 }

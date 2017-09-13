@@ -14,7 +14,7 @@ module.exports = (vorpal, state) => {
         return {
           type: 'amqp',
           host: args.options.host || 'localhost',
-          port: args.options.port || 8080,
+          port: args.options.port || 5672,
           pin: args.options.pin,
           socketOptions: {
             noDelay: true
@@ -35,11 +35,19 @@ module.exports = (vorpal, state) => {
       '-h, --host <host>',
       "'host' or 'hostname' parameter. Default 'localhost'."
     )
-    .option('-p, --port <port>', "'port' parameter. Default 8080.")
+    .option(
+      '-p, --port <port>',
+      "'port' parameter. Default: tcp - 8080, amqp - 5672."
+    )
     .option(
       '--pin <pin>',
-      'PIN for Seneca messages. Must be parseable by jsonic.'
+      'PIN for Seneca messages. Must be parseable by jsonic. Required for amqp clients.'
     )
+    .validate(args => {
+      if (args.type === 'amqp' && !args.options.pin)
+        return 'For an amqp client, please specify --pin.';
+      else return true;
+    })
     .action(function(args, cb) {
       const that = this;
 

@@ -24,5 +24,8 @@ module.exports = (vorpal, state) => {
 
         cb();
       });
+    })
+    .cancel(function() {
+      this.log("Cancelled. Sorry this didn't work out.");
     });
 };

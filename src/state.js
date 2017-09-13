@@ -1,4 +1,4 @@
-const Seneca = require('seneca');
+const startSeneca = require('./start-seneca');
 const chalk = require('chalk');
 
 module.exports = function() {
@@ -6,10 +6,7 @@ module.exports = function() {
   let clientConfigs = [];
 
   function getSeneca() {
-    if (!seneca)
-      seneca = Seneca({
-        log: 'quiet'
-      });
+    if (!seneca) seneca = startSeneca();
     return seneca;
   }
 
